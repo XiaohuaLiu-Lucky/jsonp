@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>百度联想词功能</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+            text-decoration: none;
+        }
+        
+        .wrapper {
+            width: 378px;
+            margin: 100px auto;
+        }
+        
+        .wrapper .search {
+            width: 100%;
+            padding: 0 10px;
+            font-size: 16px;
+            height: 34px;
+        }
+        
+        .wrapper .box {
+            display: none;
+            width: 100%;
+            padding: 0 12px 0px 10px;
+            border-width: 0px 1px 1px 1px;
+            border-style: solid;
+            border-color: #aaa;
+        }
+        
+        .box a {
+            display: block;
+            width: 100%;
+            height: 24px;
+            line-height: 24px;
+            font-size: 13px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <input type="text" class="search">
+        <ul class="box">
+            <!-- <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li> -->
+        </ul>
+    </div>
+    <script>
+        var oInput = document.getElementsByTagName('input')[0],
+            oUl = document.getElementsByClassName('box')[0];
+        oInput.oninput = function() {
+            var value = this.value,
+                oScript = document.createElement('script');
+            oScript.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + value + "&cb=search";
+            document.body.appendChild(oScript);
+            oScript.onload = function() {
+                document.body.removeChild(oScript);
+            }
+        }
+
+        function search(data) {
+            var s = data.s;
+            str = '';
+            if (s.length > 0) {
+                s.forEach(function(ele) {
+                    str += '<li><a href="#">' + ele + '</a></li>';
+                });
+                oUl.innerHTML = str;
+                oUl.style.display = 'block';
+            } else {
+                oUl.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
